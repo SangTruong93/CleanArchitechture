@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright 2017 Vandolf Estrellado
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *        http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-package namtran.cleanarchitechturesample.di;
+package namtran.cleanarchitechturesample.application.mvp.core;
 
 /**
- * Marks an activity / fragment injectable.
+ * The type of all views.
+ * <p>
+ * Note that this is not named "IView" because it collides with Android's {@link android.view.View}.
  */
-public interface Injectable {
+public interface MVPView {
+
+    void onShowMessageError(Throwable cause);
+
+    void onShowLoading();
+
+    void onHideLoading();
+
+    void onShowLoadingDialog();
+
+    void onHideLoadingDialog();
+
 }

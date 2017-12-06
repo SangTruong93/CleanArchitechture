@@ -1,33 +1,46 @@
 package namtran.cleanarchitechturesample.di.module;
 
+import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
-import namtran.cleanarchitechturesample.domain.executor.AppSchedulerProvider;
-import namtran.cleanarchitechturesample.domain.executor.SchedulerProvider;
-import namtran.cleanarchitechturesample.domain.repository.AppRepository;
-import namtran.cleanarchitechturesample.domain.repository.IAppRepository;
+import dagger.android.AndroidInjectionModule;
+import dagger.android.ContributesAndroidInjector;
+import namtran.cleanarchitechturesample.application.AppState;
+import namtran.cleanarchitechturesample.application.mvp.view.SoccerSeasonMvpActivity;
+import namtran.cleanarchitechturesample.di.inject.PerActivity;
+import namtran.cleanarchitechturesample.di.module.mvp.SoccerSeasonActivityModule;
 
-@Module
-public class AppModule {
+/**
+ * Provides application-wide dependencies.
+ */
+@Module(includes = {
+        AndroidInjectionModule.class,
+        NetModule.class,
+        DataModule.class
+})
+public abstract class AppModule {
 
-    @Provides
+    @Binds
     @Singleton
-    Context provideContext(Application application) {
-        return application;
-    }
+    /*
+     * Singleton annotation isn't necessary since Application instance is unique but is here for
+     * convention. In general, providing Activity, Fragment, BroadcastReceiver, etc does not require
+     * them to be scoped since they are the components being injected and their instance is unique.
+     *
+     * However, having a scope annotation makes the module easier to read. We wouldn't have to look
+     * at what is being provided in order to understand its scope.
+     */
+    abstract Application application(AppState app);
 
-    @Provides
-    SchedulerProvider provideSchedulerProvider() {
-        return new AppSchedulerProvider();
-    }
-
-    @Provides @Singleton
-    IAppRepository provideDataManager(AppRepository repository) {
-        return repository;
-    }
+    /**
+     * Provides the injector for the {@link Activity}, which has access to the dependencies
+     * provided by this application instance (singleton scoped objects).
+     */
+    @PerActivity
+    @ContributesAndroidInjector(modules = SoccerSeasonActivityModule.class)
+    abstract SoccerSeasonMvpActivity mainActivityInjector();
 }

@@ -16,12 +16,11 @@
 package namtran.cleanarchitechturesample.domain.interactor.core;
 
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.subscribers.DisposableSubscriber;
 
 /**
  * Default {@link DisposableObserver} base class to be used whenever you want default error handling.
  */
-public class DefaultSubscriber<T> extends DisposableSubscriber<T> {
+public class DefaultSubscriber<T> extends DisposableObserver<T> {
   @Override public void onNext(T t) {
     // no-op by default.
   }

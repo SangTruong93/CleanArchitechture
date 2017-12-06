@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="namtran.cleanarchitechturesample.application.mvvm.viewmodel.TestViewModel" />
-    </data>
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/toolbar"
+        app:theme="@style/Widget.AppCompat.Light.ActionBar"
+        app:popupTheme="@style/Widget.AppCompat.Light.ActionBar"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="4dp"/>
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_data"
-        tools:context="me.xiaobailong24.mvvmarms.weather.mvvm.view.activity.WeatherActivity"/>
-
-</layout>
-
+        android:id="@+id/contain_main"/>
+</LinearLayout>

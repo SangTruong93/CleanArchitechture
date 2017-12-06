@@ -1,15 +1,13 @@
 package namtran.cleanarchitechturesample.flatform;
 
-
 import java.util.List;
 
-import io.reactivex.Flowable;
-import namtran.cleanarchitechturesample.flatform.model.Test;
+import io.reactivex.Observable;
+import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public interface IApi {
 
-    @GET("/test.json?key=bbbccaa0")
-    Flowable<List<Test>> getData();
+    @GET("/v1/soccerseasons")
+    Observable<List<SoccerSeasons>> getData();
 }
