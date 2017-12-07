@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import namtran.cleanarchitechturesample.R;
 import namtran.cleanarchitechturesample.application.mvp.core.BaseActivityMvp;
 import namtran.cleanarchitechturesample.application.mvp.presenter.iview.ISoccerSeasonActivity;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
 
 
 public class SoccerSeasonMvpActivity extends BaseActivityMvp<ISoccerSeasonActivity.IPresenter> implements ISoccerSeasonActivity.IView {
@@ -22,7 +19,7 @@ public class SoccerSeasonMvpActivity extends BaseActivityMvp<ISoccerSeasonActivi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R   .layout.activity_main);
+        setContentView(R   .layout.activity_soccer_season_mvp);
         ButterKnife.bind(this);
 
         mToolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.white));

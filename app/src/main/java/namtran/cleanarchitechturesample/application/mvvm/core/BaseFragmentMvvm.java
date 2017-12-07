@@ -17,58 +17,66 @@
 package namtran.cleanarchitechturesample.application.mvvm.core;
 
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
+import namtran.cleanarchitechturesample.application.core.BaseActivity;
+import namtran.cleanarchitechturesample.application.core.BaseFragment;
 
-public abstract class BaseActivity<T extends ViewDataBinding, V extends AndroidViewModel> extends AppCompatActivity {
+@SuppressWarnings("unused")
+public abstract class BaseFragmentMvvm<T extends ViewDataBinding, V extends AndroidViewModel> extends BaseFragment {
 
+    /**
+     * MVVM ViewModel ViewModelProvider.Factory
+     */
     @Inject
     protected ViewModelProvider.Factory mViewModelFactory;
 
+    private BaseActivity mActivity;
     protected T mViewDataBinding;
     protected V mViewModel;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        performDependencyInjection();
-        performDataBinding();
+        setHasOptionsMenu(false);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        return mViewDataBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.mViewDataBinding = null;
+        V mViewModel = null;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViewModel(mViewModelFactory);
         initData(savedInstanceState);
     }
 
-    private void performDataBinding() {
-        mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-        this.mViewModel = mViewModel == null ? getViewModel() : mViewModel;
-        mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
-        mViewDataBinding.executePendingBindings();
+    public BaseActivity getThis() {
+        return mActivity;
     }
-
-    public T getViewDataBinding() {
-        return mViewDataBinding;
-    }
-
-    /**
-     * Override for set view model
-     *
-     * @return view model instance
-     */
-    public abstract V getViewModel();
-
-    /**
-     * Override for set binding variable
-     *
-     * @return variable id
-     */
-    public abstract int getBindingVariable();
 
     /**
      * @return layout resource id
@@ -77,24 +85,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends AndroidV
     @LayoutRes
     int getLayoutId();
 
+    public abstract void initViewModel(ViewModelProvider.Factory factory);
+
     /**
      * Data initialization
      *
      * @param savedInstanceState Bundle
      */
     public abstract void initData(Bundle savedInstanceState);
-
-    public void performDependencyInjection() {
-        AndroidInjection.inject(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        this.mViewDataBinding = null;
-        this.mViewModelFactory = null;
-        this.mViewModel = null;
-    }
-
 }
-

@@ -1,6 +1,5 @@
 package namtran.cleanarchitechturesample.di.module.mvp;
 
-
 import android.app.Activity;
 
 import dagger.Binds;
@@ -21,14 +20,14 @@ import namtran.cleanarchitechturesample.di.inject.PerFragment;
         BaseActivityModule.class,
         SoccerSeasonActivityPresenterModule.class
 })
-public abstract class SoccerSeasonActivityModule {
+public abstract class SoccerSeasonActivityMvpModule {
 
     /**
      * Provides the injector for the {@link SoccerSeasonMvpFragment}, which has access to the dependencies
      * provided by this activity and application instance (singleton scoped objects).
      */
     @PerFragment
-    @ContributesAndroidInjector(modules = SoccerSeasonFragmentModule.class)
+    @ContributesAndroidInjector(modules = SoccerSeasonFragmentMvpModule.class)
     abstract SoccerSeasonMvpFragment soccerSeasonMvpFragmentInjector();
 
     /**

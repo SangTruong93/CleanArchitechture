@@ -71,16 +71,6 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
     }
 
     @Override
-    public void onShowLoadingDialog() {
-
-    }
-
-    @Override
-    public void onHideLoadingDialog() {
-
-    }
-
-    @Override
     public void onShowMessageError(Throwable cause) {
 
     }
@@ -106,7 +96,7 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
     @Nullable
     @Override
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater != null ? inflater.inflate(R.layout.base_progress_layout, container, false) : null;
+        View view = inflater != null ? inflater.inflate(R.layout.loading_progress_mvp, container, false) : null;
         initProgress(inflater,view);
         return view;
     }

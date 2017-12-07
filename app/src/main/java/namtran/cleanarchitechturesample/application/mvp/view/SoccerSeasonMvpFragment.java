@@ -1,7 +1,5 @@
 package namtran.cleanarchitechturesample.application.mvp.view;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,7 @@ import namtran.cleanarchitechturesample.R;
 import namtran.cleanarchitechturesample.application.mvp.adapter.SoccerSeasonAdapter;
 import namtran.cleanarchitechturesample.application.mvp.core.BaseFragmentMvp;
 import namtran.cleanarchitechturesample.application.mvp.presenter.iview.IISoccerSeasonFragment;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
+import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
 public class SoccerSeasonMvpFragment extends BaseFragmentMvp<IISoccerSeasonFragment.IPresenter> implements IISoccerSeasonFragment.IView {
 
@@ -40,7 +38,7 @@ public class SoccerSeasonMvpFragment extends BaseFragmentMvp<IISoccerSeasonFragm
     }
 
     @Override
-    public void onComplete(List<SoccerSeasons> soccerSeason) {
+    public void onComplete(List<SoccerSeason> soccerSeason) {
         if (mAdapter != null)
             mAdapter.updateData(soccerSeason);
     }

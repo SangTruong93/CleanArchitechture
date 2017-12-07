@@ -29,8 +29,4 @@ public interface MVPView {
 
     void onHideLoading();
 
-    void onShowLoadingDialog();
-
-    void onHideLoadingDialog();
-
 }

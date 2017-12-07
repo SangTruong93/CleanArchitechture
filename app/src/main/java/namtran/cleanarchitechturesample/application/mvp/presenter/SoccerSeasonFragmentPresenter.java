@@ -9,8 +9,8 @@ import namtran.cleanarchitechturesample.application.mvp.core.BasePresenter;
 import namtran.cleanarchitechturesample.application.mvp.presenter.iview.IISoccerSeasonFragment;
 import namtran.cleanarchitechturesample.di.inject.PerFragment;
 import namtran.cleanarchitechturesample.domain.interactor.GetSessionUseCase;
-import namtran.cleanarchitechturesample.domain.interactor.core.DefaultSubscriber;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
+import namtran.cleanarchitechturesample.domain.interactor.core.DefaultMvpSubscriber;
+import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
 @PerFragment
 public class SoccerSeasonFragmentPresenter extends BasePresenter<IISoccerSeasonFragment.IView> implements IISoccerSeasonFragment.IPresenter {
@@ -25,8 +25,7 @@ public class SoccerSeasonFragmentPresenter extends BasePresenter<IISoccerSeasonF
 
     @Override
     public void getSession() {
-        getMvpView().onShowLoading();
-        mSessionUseCase.execute(new GetData(),null);
+        mSessionUseCase.execute(new GetData(getMvpView()),null);
     }
 
     @Override
@@ -36,20 +35,16 @@ public class SoccerSeasonFragmentPresenter extends BasePresenter<IISoccerSeasonF
             mSessionUseCase.dispose();
     }
 
-    private final class GetData extends DefaultSubscriber<List<SoccerSeasons>> {
+    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeason>,IISoccerSeasonFragment.IView> {
 
-        @Override public void onComplete() {
-            getMvpView().onHideLoading();
-        }
-
-        @Override public void onError(Throwable e) {
-            getMvpView().onHideLoading();
-            getMvpView().onShowMessageError(e);
+        GetData(IISoccerSeasonFragment.IView iView) {
+            super(iView);
         }
 
         @Override
-        public void onNext(List<SoccerSeasons> soccerSeasonsRespons) {
-            getMvpView().onComplete(soccerSeasonsRespons);
+        public void onNext(List<SoccerSeason> soccerSeasonRespons) {
+            getMvpView().onComplete(soccerSeasonRespons);
+            super.onNext(soccerSeasonRespons);
         }
     }
 }

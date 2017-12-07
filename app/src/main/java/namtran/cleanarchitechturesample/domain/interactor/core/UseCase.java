@@ -15,10 +15,12 @@
  */
 package namtran.cleanarchitechturesample.domain.interactor.core;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.subscribers.DisposableSubscriber;
 import namtran.cleanarchitechturesample.domain.executor.SchedulerProvider;
 import namtran.cleanarchitechturesample.domain.repository.IAppRepository;
 import namtran.cleanarchitechturesample.util.Preconditions;
@@ -44,20 +46,23 @@ public abstract class UseCase<T, Params> {
   }
 
   /**
-   * Builds an {@link Observable} which will be used when executing the current {@link UseCase}.
+   * Builds an {@link Flowable} which will be used when executing the current {@link UseCase}.
    */
-  protected abstract Observable<T> buildUseCaseObservable(Params params);
+  protected abstract Flowable<T> buildUseCaseFlowable(Params params);
 
   /**
    * Executes the current use case.
    *
-   * @param observer {@link DisposableObserver} which will be listening to the observable build
-   * by {@link #buildUseCaseObservable(Params)} ()} method.
+   * @param observer {@link DisposableSubscriber} which will be listening to the observable build
+   * by {@link #buildUseCaseFlowable(Params)} ()} method.
    * @param params Parameters (Optional) used to build/execute this use case.
    */
-  public void execute(DisposableObserver<T> observer, Params params) {
+  public void execute(DisposableSubscriber<T> observer, Params params) {
     Preconditions.checkNotNull(observer);
-    final Observable<T> observable = this.buildUseCaseObservable(params)
+    if (observer.isDisposed()){
+      observer.dispose();
+    }
+    final Flowable<T> observable = this.buildUseCaseFlowable(params)
         .subscribeOn(schedulerProvider.io())
         .observeOn(schedulerProvider.ui());
     addDisposable(observable.subscribeWith(observer));

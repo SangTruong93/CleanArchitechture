@@ -4,12 +4,12 @@ import java.util.List;
 
 import namtran.cleanarchitechturesample.application.mvp.core.MVPView;
 import namtran.cleanarchitechturesample.application.mvp.core.Presenter;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
+import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
 public interface IISoccerSeasonFragment {
 
     interface IView extends MVPView {
-        void onComplete(List<SoccerSeasons> soccerSeasonsRespons);
+        void onComplete(List<SoccerSeason> soccerSeasonRespons);
     }
 
     interface IPresenter extends Presenter<IView> {

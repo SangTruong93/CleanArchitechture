@@ -15,41 +15,36 @@
  */
 package namtran.cleanarchitechturesample.domain.interactor.core;
 
-import android.arch.lifecycle.MutableLiveData;
-
-import java.util.List;
-
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.subscribers.DisposableSubscriber;
 import namtran.cleanarchitechturesample.application.mvp.core.MVPView;
-import namtran.cleanarchitechturesample.flatform.Resource;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
 /**
  * Default {@link DisposableObserver} base class to be used whenever you want default error handling.
  */
-public abstract class DefaultSubscriber<T> extends DisposableSubscriber<T> {
+public abstract class DefaultMvpSubscriber<T,V extends MVPView> extends DisposableSubscriber<T> {
 
-  private MutableLiveData<Resource<T>> results;
+  private V v;
 
-  public DefaultSubscriber(MutableLiveData<Resource<T>> results) {
-    this.results = results;
+  public DefaultMvpSubscriber(V v) {
+    this.v = v;
   }
 
   @Override
   protected void onStart() {
-    results.setValue(Resource.<T>loading(null));
+    v.onShowLoading();
     request(1);
   }
 
   @Override
   public void onNext(T t) {
-    results.setValue(Resource.success(t));
+    v.onHideLoading();
   }
 
   @Override
-  public void onError(Throwable exception) {
-    results.setValue(Resource.<T>error(exception.getMessage(), null));
+  public void onError(Throwable t) {
+    v.onShowMessageError(t);
+    v.onHideLoading();
   }
 
   @Override

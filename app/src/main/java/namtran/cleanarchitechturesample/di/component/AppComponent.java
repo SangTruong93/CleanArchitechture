@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import dagger.android.AndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
 import namtran.cleanarchitechturesample.application.AppState;
 import namtran.cleanarchitechturesample.di.module.AppModule;
 
@@ -12,6 +13,5 @@ import namtran.cleanarchitechturesample.di.module.AppModule;
 public interface AppComponent extends AndroidInjector<AppState> {
 
     @Component.Builder
-    abstract class Builder extends AndroidInjector.Builder<AppState> {
-    }
+    abstract class Builder extends AndroidInjector.Builder<AppState> {}
 }

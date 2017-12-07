@@ -8,8 +8,8 @@ import namtran.cleanarchitechturesample.application.mvp.core.BasePresenter;
 import namtran.cleanarchitechturesample.application.mvp.presenter.iview.ISoccerSeasonActivity;
 import namtran.cleanarchitechturesample.di.inject.PerActivity;
 import namtran.cleanarchitechturesample.domain.interactor.GetSessionUseCase;
-import namtran.cleanarchitechturesample.domain.interactor.core.DefaultSubscriber;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
+import namtran.cleanarchitechturesample.domain.interactor.core.DefaultMvpSubscriber;
+import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
 @PerActivity
 public class SoccerSeasonActivityPresenter extends BasePresenter<ISoccerSeasonActivity.IView> implements ISoccerSeasonActivity.IPresenter {
@@ -24,7 +24,7 @@ public class SoccerSeasonActivityPresenter extends BasePresenter<ISoccerSeasonAc
 
     @Override
     public void getSession() {
-        mSessionUseCase.execute(new GetData(),null);
+//        mSessionUseCase.execute(new GetData(),null);
     }
 
     @Override
@@ -34,20 +34,20 @@ public class SoccerSeasonActivityPresenter extends BasePresenter<ISoccerSeasonAc
             mSessionUseCase.dispose();
     }
 
-    private final class GetData extends DefaultSubscriber<List<SoccerSeasons>> {
-
-        @Override public void onComplete() {
-            getMvpView().onHideLoading();
-        }
-
-        @Override public void onError(Throwable e) {
-            getMvpView().onHideLoading();
-            getMvpView().onShowMessageError(e);
-        }
-
-        @Override
-        public void onNext(List<SoccerSeasons> soccerSeasonsRespons) {
-            getMvpView().onComplete(soccerSeasonsRespons);
-        }
-    }
+//    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeason>> {
+//
+//        @Override public void onComplete() {
+//            getMvpView().onHideLoading();
+//        }
+//
+//        @Override public void onError(Throwable e) {
+//            getMvpView().onHideLoading();
+//            getMvpView().onShowMessageError(e);
+//        }
+//
+//        @Override
+//        public void onNext(List<SoccerSeason> soccerSeasonRespons) {
+//            //todo
+//        }
+//    }
 }

@@ -14,9 +14,9 @@ import butterknife.BindView;
 import namtran.cleanarchitechturesample.R;
 import namtran.cleanarchitechturesample.application.mvp.core.AbsBaseAdapter;
 import namtran.cleanarchitechturesample.application.mvp.core.AbsBaseViewHolder;
-import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeasons;
+import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
-public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeasons, SoccerSeasonAdapter.SoccerSeasonHolder> {
+public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeason, SoccerSeasonAdapter.SoccerSeasonHolder> {
 
     @Inject
     public SoccerSeasonAdapter() {
@@ -33,7 +33,7 @@ public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeasons, SoccerSea
         return new SoccerSeasonHolder(view);
     }
 
-    static class SoccerSeasonHolder extends AbsBaseViewHolder<SoccerSeasons> {
+    static class SoccerSeasonHolder extends AbsBaseViewHolder<SoccerSeason> {
 
         @BindView(R.id.tv_caption)
         TextView mTvCaption;
@@ -47,12 +47,12 @@ public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeasons, SoccerSea
         }
 
         @Override
-        public void bind(List<SoccerSeasons> data) {
+        public void bind(List<SoccerSeason> data) {
 
         }
 
         @Override
-        public void bind(SoccerSeasons data) {
+        public void bind(SoccerSeason data) {
             mTvCaption.setText(data.caption);
             mTvLeague.setText(data.league);
             mTvNumberTeam.setText(String.format(Locale.getDefault(),"%s %s","Number team",String.valueOf(data.numberOfTeams)));

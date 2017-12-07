@@ -18,7 +18,7 @@ import namtran.cleanarchitechturesample.di.inject.PerFragment;
         BaseFragmentModule.class,
         SoccerSeasonFragmentPresenterModule.class
 })
-public abstract class SoccerSeasonFragmentModule {
+public abstract class SoccerSeasonFragmentMvpModule {
 
     /**
      * As per the contract specified in {@link BaseFragmentModule}; "This must be included in all

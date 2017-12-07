@@ -52,14 +52,4 @@ public abstract class BaseActivityMvp<T extends Presenter> extends BaseActivity 
     public void onHideLoading() {
 
     }
-
-    @Override
-    public void onShowLoadingDialog() {
-
-    }
-
-    @Override
-    public void onHideLoadingDialog() {
-
-    }
 }

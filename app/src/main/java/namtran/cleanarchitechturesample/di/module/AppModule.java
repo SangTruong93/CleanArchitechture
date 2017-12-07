@@ -11,16 +11,20 @@ import dagger.android.AndroidInjectionModule;
 import dagger.android.ContributesAndroidInjector;
 import namtran.cleanarchitechturesample.application.AppState;
 import namtran.cleanarchitechturesample.application.mvp.view.SoccerSeasonMvpActivity;
+import namtran.cleanarchitechturesample.application.mvvm.view.SoccerSeasonMvvmActivity;
 import namtran.cleanarchitechturesample.di.inject.PerActivity;
-import namtran.cleanarchitechturesample.di.module.mvp.SoccerSeasonActivityModule;
+import namtran.cleanarchitechturesample.di.module.mvp.SoccerSeasonActivityMvpModule;
+import namtran.cleanarchitechturesample.di.module.mvvm.SoccerSeasonActivityMvvmModule;
 
 /**
  * Provides application-wide dependencies.
  */
 @Module(includes = {
         AndroidInjectionModule.class,
+        ViewModelModule.class,
         NetModule.class,
-        DataModule.class
+        DataModule.class,
+        DbModule.class
 })
 public abstract class AppModule {
 
@@ -41,6 +45,14 @@ public abstract class AppModule {
      * provided by this application instance (singleton scoped objects).
      */
     @PerActivity
-    @ContributesAndroidInjector(modules = SoccerSeasonActivityModule.class)
-    abstract SoccerSeasonMvpActivity mainActivityInjector();
+    @ContributesAndroidInjector(modules = SoccerSeasonActivityMvpModule.class)
+    abstract SoccerSeasonMvpActivity soccerSeasonActivityMvpInjector();
+
+    /**
+     * Provides the injector for the {@link Activity}, which has access to the dependencies
+     * provided by this application instance (singleton scoped objects).
+     */
+    @PerActivity
+    @ContributesAndroidInjector(modules = SoccerSeasonActivityMvvmModule.class)
+    abstract SoccerSeasonMvvmActivity soccerSeasonActivityMvvmInjector();
 }
