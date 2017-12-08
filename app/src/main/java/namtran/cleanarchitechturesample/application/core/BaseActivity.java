@@ -16,11 +16,11 @@
 
 package namtran.cleanarchitechturesample.application.core;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
@@ -30,6 +30,7 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasFragmentInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Abstract Activity for all Activities to extend.
@@ -39,7 +40,7 @@ import dagger.android.HasFragmentInjector;
  * dagger code for free. However, we want to avoid inheritance (if possible and it is in this case)
  * so that we have to option to inherit from something else later on if needed.
  */
-public abstract class BaseActivity extends AppCompatActivity implements HasFragmentInjector {
+public abstract class BaseActivity extends AppCompatActivity implements HasSupportFragmentInjector{
 
     /**
      * A reference to the FragmentManager is injected and used instead of the getter method. This
@@ -61,13 +62,23 @@ public abstract class BaseActivity extends AppCompatActivity implements HasFragm
     }
 
     @Override
-    public final AndroidInjector<Fragment> fragmentInjector() {
+    public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentInjector;
     }
 
     protected final void addFragment(@IdRes int containerViewId, Fragment fragment) {
         fragmentManager.beginTransaction()
                 .add(containerViewId, fragment)
+                .addToBackStack(null)
                 .commit();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        detach();
+    }
+
+    protected abstract void detach();
 }

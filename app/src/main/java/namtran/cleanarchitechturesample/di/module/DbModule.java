@@ -16,7 +16,8 @@ public class DbModule {
     @Singleton
     @Provides
     DbProvider provideDb(Application app) {
-        return Room.databaseBuilder(app, DbProvider.class,"clean architechture.db").build();
+        return Room.databaseBuilder(app, DbProvider.class,"clean architechture.db").fallbackToDestructiveMigration()
+                .build();
     }
 
     @Singleton @Provides

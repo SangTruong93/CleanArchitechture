@@ -7,20 +7,20 @@ import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.android.AndroidInjectionModule;
 import dagger.android.ContributesAndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
 import namtran.cleanarchitechturesample.application.AppState;
-import namtran.cleanarchitechturesample.application.mvp.view.SoccerSeasonMvpActivity;
-import namtran.cleanarchitechturesample.application.mvvm.view.SoccerSeasonMvvmActivity;
+import namtran.cleanarchitechturesample.application.mvp.view.MvpActivity;
+import namtran.cleanarchitechturesample.application.mvvm.view.MvvmActivity;
 import namtran.cleanarchitechturesample.di.inject.PerActivity;
-import namtran.cleanarchitechturesample.di.module.mvp.SoccerSeasonActivityMvpModule;
-import namtran.cleanarchitechturesample.di.module.mvvm.SoccerSeasonActivityMvvmModule;
+import namtran.cleanarchitechturesample.di.module.mvp.MvpActivityModule;
+import namtran.cleanarchitechturesample.di.module.mvvm.MvvmActivityMvvmModule;
 
 /**
  * Provides application-wide dependencies.
  */
 @Module(includes = {
-        AndroidInjectionModule.class,
+        AndroidSupportInjectionModule.class,
         ViewModelModule.class,
         NetModule.class,
         DataModule.class,
@@ -45,14 +45,14 @@ public abstract class AppModule {
      * provided by this application instance (singleton scoped objects).
      */
     @PerActivity
-    @ContributesAndroidInjector(modules = SoccerSeasonActivityMvpModule.class)
-    abstract SoccerSeasonMvpActivity soccerSeasonActivityMvpInjector();
+    @ContributesAndroidInjector(modules = MvpActivityModule.class)
+    abstract MvpActivity soccerSeasonActivityMvpInjector();
 
     /**
      * Provides the injector for the {@link Activity}, which has access to the dependencies
      * provided by this application instance (singleton scoped objects).
      */
     @PerActivity
-    @ContributesAndroidInjector(modules = SoccerSeasonActivityMvvmModule.class)
-    abstract SoccerSeasonMvvmActivity soccerSeasonActivityMvvmInjector();
+    @ContributesAndroidInjector(modules = MvvmActivityMvvmModule.class)
+    abstract MvvmActivity soccerSeasonActivityMvvmInjector();
 }

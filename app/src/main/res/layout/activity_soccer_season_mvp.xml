@@ -12,6 +12,7 @@
         app:theme="@style/Widget.AppCompat.Light.ActionBar"
         app:popupTheme="@style/Widget.AppCompat.Light.ActionBar"
         android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/white"
         android:elevation="4dp"/>
 
     <FrameLayout

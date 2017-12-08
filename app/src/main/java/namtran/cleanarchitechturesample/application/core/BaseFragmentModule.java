@@ -16,8 +16,8 @@
 
 package namtran.cleanarchitechturesample.application.core;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import javax.inject.Named;
 

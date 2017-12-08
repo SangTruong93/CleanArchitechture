@@ -6,19 +6,21 @@ import java.util.List;
 import javax.inject.Inject;
 
 import namtran.cleanarchitechturesample.application.mvp.core.BasePresenter;
-import namtran.cleanarchitechturesample.application.mvp.presenter.iview.IISoccerSeasonFragment;
+import namtran.cleanarchitechturesample.application.mvp.presenter.iview.ISoccerSeasonFragment;
 import namtran.cleanarchitechturesample.di.inject.PerFragment;
 import namtran.cleanarchitechturesample.domain.interactor.GetSessionUseCase;
+import namtran.cleanarchitechturesample.domain.interactor.core.DefaultMvpObserve;
 import namtran.cleanarchitechturesample.domain.interactor.core.DefaultMvpSubscriber;
+import namtran.cleanarchitechturesample.domain.interactor.core.DefaultSubscriber;
 import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
 @PerFragment
-public class SoccerSeasonFragmentPresenter extends BasePresenter<IISoccerSeasonFragment.IView> implements IISoccerSeasonFragment.IPresenter {
+public class SoccerSeasonFragmentPresenter extends BasePresenter<ISoccerSeasonFragment.IView> implements ISoccerSeasonFragment.IPresenter {
 
     private final GetSessionUseCase mSessionUseCase;
 
     @Inject
-    SoccerSeasonFragmentPresenter(IISoccerSeasonFragment.IView IView, GetSessionUseCase mSessionUseCase) {
+    SoccerSeasonFragmentPresenter(ISoccerSeasonFragment.IView IView, GetSessionUseCase mSessionUseCase) {
         super(IView);
         this.mSessionUseCase = mSessionUseCase;
     }
@@ -35,16 +37,16 @@ public class SoccerSeasonFragmentPresenter extends BasePresenter<IISoccerSeasonF
             mSessionUseCase.dispose();
     }
 
-    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeason>,IISoccerSeasonFragment.IView> {
+    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeason>,ISoccerSeasonFragment.IView> {
 
-        GetData(IISoccerSeasonFragment.IView iView) {
+        GetData(ISoccerSeasonFragment.IView iView) {
             super(iView);
         }
 
         @Override
-        public void onNext(List<SoccerSeason> soccerSeasonRespons) {
-            getMvpView().onComplete(soccerSeasonRespons);
-            super.onNext(soccerSeasonRespons);
+        public void onNext(List<SoccerSeason> soccerSeasons) {
+            super.onNext(soccerSeasons);
+            view.onComplete(soccerSeasons);
         }
     }
 }

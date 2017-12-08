@@ -4,7 +4,6 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import dagger.android.AndroidInjector;
-import dagger.android.support.AndroidSupportInjectionModule;
 import namtran.cleanarchitechturesample.application.AppState;
 import namtran.cleanarchitechturesample.di.module.AppModule;
 

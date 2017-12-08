@@ -18,33 +18,35 @@ package namtran.cleanarchitechturesample.domain.interactor.core;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.subscribers.DisposableSubscriber;
 import namtran.cleanarchitechturesample.application.mvp.core.MVPView;
+import namtran.cleanarchitechturesample.util.Logger;
 
 /**
  * Default {@link DisposableObserver} base class to be used whenever you want default error handling.
  */
 public abstract class DefaultMvpSubscriber<T,V extends MVPView> extends DisposableSubscriber<T> {
 
-  private V v;
+  protected V view;
 
   public DefaultMvpSubscriber(V v) {
-    this.v = v;
+    this.view = v;
   }
 
   @Override
   protected void onStart() {
-    v.onShowLoading();
+    view.onShowLoading();
     request(1);
   }
 
   @Override
   public void onNext(T t) {
-    v.onHideLoading();
+    view.onHideLoading();
   }
 
   @Override
   public void onError(Throwable t) {
-    v.onShowMessageError(t);
-    v.onHideLoading();
+    view.onShowMessageError(t);
+    view.onHideLoading();
+    Logger.debug(t);
   }
 
   @Override

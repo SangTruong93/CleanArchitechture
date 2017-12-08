@@ -16,21 +16,18 @@
 
 package namtran.cleanarchitechturesample.application.mvvm.core;
 
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
 import namtran.cleanarchitechturesample.application.core.BaseActivity;
 
-public abstract class BaseActivityMvvm<T extends ViewDataBinding, V extends AndroidViewModel> extends BaseActivity {
+public abstract class BaseActivityMvvm<T extends ViewDataBinding, V extends BaseViewModel> extends BaseActivity {
 
     @Inject
     protected ViewModelProvider.Factory mViewModelFactory;

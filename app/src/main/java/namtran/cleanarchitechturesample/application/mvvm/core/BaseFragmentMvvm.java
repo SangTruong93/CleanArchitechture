@@ -74,10 +74,6 @@ public abstract class BaseFragmentMvvm<T extends ViewDataBinding, V extends Andr
         initData(savedInstanceState);
     }
 
-    public BaseActivity getThis() {
-        return mActivity;
-    }
-
     /**
      * @return layout resource id
      */

@@ -9,18 +9,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import namtran.cleanarchitechturesample.application.mvvm.core.BaseViewModel;
 import namtran.cleanarchitechturesample.domain.interactor.GetSessionUseCase;
+import namtran.cleanarchitechturesample.domain.interactor.core.DefaultObserve;
 import namtran.cleanarchitechturesample.domain.interactor.core.DefaultSubscriber;
 import namtran.cleanarchitechturesample.flatform.Resource;
 import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
-public class SoccerSeasonActivityModel extends AndroidViewModel {
+public class MvvmActivityModel extends BaseViewModel {
 
     private MutableLiveData<Resource<List<SoccerSeason>>> results;
     private final GetSessionUseCase getDataTest;
 
     @Inject
-    SoccerSeasonActivityModel(Application application,GetSessionUseCase getSessionUseCase) {
+    MvvmActivityModel(Application application, GetSessionUseCase getSessionUseCase) {
         super(application);
         this.getDataTest = getSessionUseCase;
     }
@@ -33,20 +35,19 @@ public class SoccerSeasonActivityModel extends AndroidViewModel {
             results = new MutableLiveData<>();
         }
 
-        getDataTest.execute(new GetSoccerSeasionObserver(results),null);
+        getDataTest.execute(new GetSoccerSeasion(results),null);
         return results;
     }
 
     @Override
-    protected void onCleared() {
+    public void detach() {
         getDataTest.dispose();
-        super.onCleared();
+        onCleared();
     }
 
-    private final class GetSoccerSeasionObserver extends DefaultSubscriber<List<SoccerSeason>> {
+    private final class GetSoccerSeasion extends DefaultSubscriber<List<SoccerSeason>>{
 
-
-        GetSoccerSeasionObserver(MutableLiveData<Resource<List<SoccerSeason>>> results) {
+        GetSoccerSeasion(MutableLiveData<Resource<List<SoccerSeason>>> results) {
             super(results);
         }
     }

@@ -1,4 +1,4 @@
-package namtran.cleanarchitechturesample.application.mvp.adapter;
+package namtran.cleanarchitechturesample.application.adapter;
 
 
 import android.view.View;
@@ -18,6 +18,8 @@ import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerS
 
 public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeason, SoccerSeasonAdapter.SoccerSeasonHolder> {
 
+    private OnSoccerSeasonItemClick onSoccerSeasonItemClick;
+
     @Inject
     public SoccerSeasonAdapter() {
         mListData = new ArrayList<>();
@@ -25,12 +27,16 @@ public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeason, SoccerSeas
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_soccer_season_mvp;
+        return R.layout.adapter_soccer_season;
     }
 
     @Override
     public SoccerSeasonHolder getViewHolder(View view) {
-        return new SoccerSeasonHolder(view);
+        return new SoccerSeasonHolder(view,onSoccerSeasonItemClick);
+    }
+
+    public void setOnSoccerSeasonItemClick(OnSoccerSeasonItemClick onSoccerSeasonItemClick) {
+        this.onSoccerSeasonItemClick = onSoccerSeasonItemClick;
     }
 
     static class SoccerSeasonHolder extends AbsBaseViewHolder<SoccerSeason> {
@@ -42,8 +48,11 @@ public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeason, SoccerSeas
         @BindView(R.id.tv_number_team)
         TextView mTvNumberTeam;
 
-        SoccerSeasonHolder(View itemView) {
+        private OnSoccerSeasonItemClick onSoccerSeasonItemClick;
+
+        SoccerSeasonHolder(View itemView,OnSoccerSeasonItemClick onSoccerSeasonItemClick) {
             super(itemView);
+            this.onSoccerSeasonItemClick = onSoccerSeasonItemClick;
         }
 
         @Override
@@ -52,10 +61,21 @@ public class SoccerSeasonAdapter extends AbsBaseAdapter<SoccerSeason, SoccerSeas
         }
 
         @Override
-        public void bind(SoccerSeason data) {
+        public void bind(final SoccerSeason data) {
             mTvCaption.setText(data.caption);
             mTvLeague.setText(data.league);
             mTvNumberTeam.setText(String.format(Locale.getDefault(),"%s %s","Number team",String.valueOf(data.numberOfTeams)));
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onSoccerSeasonItemClick != null)
+                        onSoccerSeasonItemClick.onSoccerSeasonItemClick(data);
+                }
+            });
         }
+    }
+
+    public interface OnSoccerSeasonItemClick{
+        void onSoccerSeasonItemClick(SoccerSeason data);
     }
 }

@@ -24,11 +24,12 @@
             android:layout_height="match_parent"
             android:id="@+id/rv_soccer_season"
             app:layoutManager="LinearLayoutManager"
-            android:visibility="@{resource.status == Status.SUCCESS ? View.VISIBLE : View.GONE}"
-            tools:listitem="@layout/adapter_soccer_season_mvp"/>
+            android:visibility="@{resource.status == status.SUCCESS ? View.VISIBLE : View.GONE}"
+            tools:listitem="@layout/adapter_soccer_season"/>
 
         <include layout="@layout/loading_progress_mvvm"
             app:resource="@{resource}"
+            app:status="@{status}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>

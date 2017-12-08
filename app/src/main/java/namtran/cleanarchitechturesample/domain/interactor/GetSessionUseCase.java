@@ -13,7 +13,6 @@ import namtran.cleanarchitechturesample.domain.interactor.core.UseCase;
 import namtran.cleanarchitechturesample.domain.repository.IAppRepository;
 import namtran.cleanarchitechturesample.flatform.remote.response.session.SoccerSeason;
 
-@Singleton
 public class GetSessionUseCase extends UseCase<List<SoccerSeason>,Void> {
 
     @Inject
@@ -23,6 +22,11 @@ public class GetSessionUseCase extends UseCase<List<SoccerSeason>,Void> {
 
     @Override
     protected Flowable<List<SoccerSeason>> buildUseCaseFlowable(Void aVoid) {
-        return iAppRepository.getData();
+        return iAppRepository.getListSeason();
+    }
+
+    @Override
+    protected Observable<List<SoccerSeason>> buildUseCaseObserve(Void aVoid) {
+        return null;
     }
 }

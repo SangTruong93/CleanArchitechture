@@ -17,11 +17,15 @@
 package namtran.cleanarchitechturesample.application.core;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,6 +33,8 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasFragmentInjector;
+import dagger.android.support.AndroidSupportInjection;
+import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Abstract Fragment for all Fragments and child Fragments to extend. This contains some boilerplate
@@ -42,7 +48,7 @@ import dagger.android.HasFragmentInjector;
  * <b>VIEW BINDING</b>
  * This fragment handles view bind and unbinding.
  */
-public abstract class BaseFragment extends Fragment implements HasFragmentInjector {
+public abstract class BaseFragment extends Fragment  implements HasSupportFragmentInjector {
 
     /**
      * A reference to the activity Context is injected and used instead of the getter method. This
@@ -77,7 +83,7 @@ public abstract class BaseFragment extends Fragment implements HasFragmentInject
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             // Perform injection here before M, L (API 22) and below because onAttach(Context)
             // is not yet available at L.
-            AndroidInjection.inject(this);
+            AndroidSupportInjection.inject(this);
         }
         super.onAttach(activity);
     }
@@ -86,14 +92,27 @@ public abstract class BaseFragment extends Fragment implements HasFragmentInject
     public void onAttach(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Perform injection here for M (API 23) due to deprecation of onAttach(Activity).
-            AndroidInjection.inject(this);
+            AndroidSupportInjection.inject(this);
         }
         super.onAttach(context);
     }
 
     @Override
-    public final AndroidInjector<Fragment> fragmentInjector() {
+    public AndroidInjector<Fragment> supportFragmentInjector() {
         return childFragmentInjector;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (getView() != null){
+            getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Nothing
+                }
+            });
+        }
     }
 
     protected Activity getThis() {
@@ -105,4 +124,18 @@ public abstract class BaseFragment extends Fragment implements HasFragmentInject
                 .add(containerViewId, fragment)
                 .commit();
     }
+
+    protected final void addFragment(@IdRes int containerViewId, Fragment fragment){
+        if (getThis() instanceof BaseActivity){
+            ((BaseActivity)getThis()).addFragment(containerViewId,fragment);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        detach();
+    }
+
+    protected abstract void detach();
 }

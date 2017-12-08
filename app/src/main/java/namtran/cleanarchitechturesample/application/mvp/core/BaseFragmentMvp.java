@@ -53,7 +53,7 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
     protected View mContainSubView;
 
     protected abstract int setLayoutContainId();
-    protected abstract void initData();
+    protected abstract void initData(Bundle savedInstanceState);
 
     @Nullable
     private Unbinder mUnbinder;
@@ -72,7 +72,7 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
 
     @Override
     public void onShowMessageError(Throwable cause) {
-
+        onLoadingEmpty(cause.getMessage());
     }
 
     public void onLoadingEmpty(String error){
@@ -150,7 +150,7 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData();
+        initData(savedInstanceState);
     }
 
     protected void initProgress(LayoutInflater inflater, View view) {

@@ -1,17 +1,15 @@
 package namtran.cleanarchitechturesample.di.module.mvvm;
 
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 
 import javax.inject.Named;
 
 import dagger.Binds;
 import dagger.Module;
 import namtran.cleanarchitechturesample.application.core.BaseFragmentModule;
-import namtran.cleanarchitechturesample.application.mvp.presenter.iview.IISoccerSeasonFragment;
-import namtran.cleanarchitechturesample.application.mvp.view.SoccerSeasonMvpFragment;
 import namtran.cleanarchitechturesample.application.mvvm.view.SoccerSeasonMvvmFragment;
 import namtran.cleanarchitechturesample.di.inject.PerFragment;
-import namtran.cleanarchitechturesample.di.module.mvp.SoccerSeasonFragmentPresenterModule;
 
 /**
  * Provides main fragment dependencies.

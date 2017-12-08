@@ -1,17 +1,32 @@
 package namtran.cleanarchitechturesample.application.mvp.core;
 
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import namtran.cleanarchitechturesample.application.core.BaseActivity;
 
 public abstract class BaseActivityMvp<T extends Presenter> extends BaseActivity implements MVPView {
 
     @Inject
     protected T presenter;
+
+    private Unbinder mUnbinder;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
+        mUnbinder = ButterKnife.bind(this);
+        initData(savedInstanceState);
+    }
 
     @Override
     public void onResume() {
@@ -36,6 +51,9 @@ public abstract class BaseActivityMvp<T extends Presenter> extends BaseActivity 
     public void onDestroy() {
         presenter.onEnd();
         super.onDestroy();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
     }
 
     @Override
@@ -52,4 +70,18 @@ public abstract class BaseActivityMvp<T extends Presenter> extends BaseActivity 
     public void onHideLoading() {
 
     }
+
+    /**
+     * @return layout resource id
+     */
+    public abstract
+    @LayoutRes
+    int getLayoutId();
+
+    /**
+     * Data initialization
+     *
+     * @param savedInstanceState Bundle
+     */
+    public abstract void initData(Bundle savedInstanceState);
 }
