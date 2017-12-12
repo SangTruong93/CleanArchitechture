@@ -87,4 +87,4 @@ Regarding testing, I opted for several solutions depending on the layer:
 - **Domain Layer:**  JUnit plus mockito for unit tests was used here.
 - **Data Layer:**  Robolectric (since this layer has android dependencies) plus junit plus mockito for integration and unit tests .
 
-## Refer : https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way
+**Refer** : https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way
