@@ -16,7 +16,7 @@ The diagram at the top of this article is an attempt at integrating all these ar
 
 **Refer :**   [**https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html**](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-- **--**** Clean Architechture sample with MVP and MVVM **** –**
+#**_Clean Architechture sample with MVP and MVVM_**
 
 **We know that writing quality software is hard and complex:**  It is not only about satisfying requirements, also should be robust, maintainable, testable, and flexible enough to adapt to growth and change. This is where  **&quot;the clean architecture&quot;**  comes up and could be a good approach for using when developing any software application.
 
