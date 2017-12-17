@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CleanArchitechture.iml" filepath="$PROJECT_DIR$/CleanArchitechture.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/application/app.iml" filepath="$PROJECT_DIR$/application/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flatform/flatform.iml" filepath="$PROJECT_DIR$/flatform/flatform.iml" />
     </modules>
   </component>
 </project>

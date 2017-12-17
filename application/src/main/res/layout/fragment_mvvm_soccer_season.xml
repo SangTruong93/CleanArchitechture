@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="namtran.cleanarchitechturesample.Status"/>
+        <import type="namtran.cleanarchitechturesample.Resource"/>
+        <variable
+            name="resource"
+            type="namtran.cleanarchitechturesample.Resource"/>
+        <variable
+            name="status"
+            type="namtran.cleanarchitechturesample.Status"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_soccer_season"
+            app:layoutManager="LinearLayoutManager"
+            android:visibility="@{resource.status == status.SUCCESS ? View.VISIBLE : View.GONE}"
+            tools:listitem="@layout/adapter_soccer_season"/>
+
+        <include layout="@layout/loading_progress_mvvm"
+            app:resource="@{resource}"
+            app:status="@{status}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</layout>
