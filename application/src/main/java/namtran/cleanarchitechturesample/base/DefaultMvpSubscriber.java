@@ -18,7 +18,7 @@ package namtran.cleanarchitechturesample.base;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.subscribers.DisposableSubscriber;
 import namtran.cleanarchitechturesample.view.mvp.core.MVPView;
-import namtran.flatform.util.Logger;
+import namtran.util.Logger;
 
 /**
  * Default {@link DisposableObserver} base class to be used whenever you want default error handling.

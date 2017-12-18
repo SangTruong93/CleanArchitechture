@@ -23,7 +23,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.subscribers.DisposableSubscriber;
 import namtran.domain.executor.SchedulerProvider;
 import namtran.domain.repository.IAppRepository;
-import namtran.flatform.util.Preconditions;
+import namtran.util.Preconditions;
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).

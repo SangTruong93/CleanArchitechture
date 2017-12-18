@@ -9,8 +9,8 @@ import namtran.cleanarchitechturesample.base.DefaultMvpSubscriber;
 import namtran.cleanarchitechturesample.view.mvp.core.BasePresenter;
 import namtran.cleanarchitechturesample.view.mvp.presenter.iview.ITeamFragment;
 import namtran.cleanarchitechturesample.mapper.TeamModelDataMapper;
+import namtran.domain.entity.TeamEntity;
 import namtran.domain.interactor.GetTeamUseCase;
-import namtran.flatform.remote.response.team.Team;
 
 public class TeamFragmentPresenter extends BasePresenter<ITeamFragment.IView> implements ITeamFragment.IPresenter {
 
@@ -36,14 +36,14 @@ public class TeamFragmentPresenter extends BasePresenter<ITeamFragment.IView> im
             getTeamUseCase.dispose();
     }
 
-    private final class GetData extends DefaultMvpSubscriber<List<Team>,ITeamFragment.IView> {
+    private final class GetData extends DefaultMvpSubscriber<List<TeamEntity>,ITeamFragment.IView> {
 
         GetData(ITeamFragment.IView iView) {
             super(iView);
         }
 
         @Override
-        public void onNext(List<Team> teams) {
+        public void onNext(List<TeamEntity> teams) {
             super.onNext(teams);
             view.onComplete(dataMapper.transform(teams));
         }

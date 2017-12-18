@@ -15,6 +15,7 @@ import namtran.cleanarchitechturesample.view.mvvm.view.MvvmActivity;
 import namtran.cleanarchitechturesample.di.inject.PerActivity;
 import namtran.cleanarchitechturesample.di.module.mvp.MvpActivityModule;
 import namtran.cleanarchitechturesample.di.module.mvvm.MvvmActivityMvvmModule;
+import namtran.domain.di.DataModule;
 
 /**
  * Provides application-wide dependencies.
@@ -22,9 +23,7 @@ import namtran.cleanarchitechturesample.di.module.mvvm.MvvmActivityMvvmModule;
 @Module(includes = {
         AndroidSupportInjectionModule.class,
         ViewModelModule.class,
-        NetModule.class,
-        DataModule.class,
-        DbModule.class
+        DataModule.class
 })
 public abstract class AppModule {
 

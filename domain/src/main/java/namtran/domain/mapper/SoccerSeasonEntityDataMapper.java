@@ -13,37 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package namtran.cleanarchitechturesample.mapper;
+package namtran.domain.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import namtran.cleanarchitechturesample.model.SoccerSeasonModel;
 import namtran.domain.entity.SoccerSeasonEntity;
+import namtran.flatform.remote.response.session.SoccerSeason;
 
 /**
- * Mapper class used to transform {@link SoccerSeasonEntity} (in the domain layer)
- * to {@link SoccerSeasonModel} in the
+ * Mapper class used to transform {@link SoccerSeason} (in the domain layer)
+ * to {@link SoccerSeasonEntity} in the
  * presentation layer.
  */
-public class SoccerSeasonModelDataMapper {
+public class SoccerSeasonEntityDataMapper {
 
   @Inject
-  public SoccerSeasonModelDataMapper() {}
+  public SoccerSeasonEntityDataMapper() {}
 
   /**
-   * Transform a {@link SoccerSeasonEntity} into an {@link SoccerSeasonModel}.
+   * Transform a {@link SoccerSeason} into an {@link SoccerSeasonEntity}.
    *
    * @param season Object to be transformed.
-   * @return {@link SoccerSeasonModel}.
+   * @return {@link SoccerSeasonEntity}.
    */
-  public SoccerSeasonModel transform(SoccerSeasonEntity season) {
+  public SoccerSeasonEntity transform(SoccerSeason season) {
     if (season == null) {
       throw new IllegalArgumentException("Cannot transform a null value");
     }
-    final SoccerSeasonModel seasonModel = new SoccerSeasonModel();
+    final SoccerSeasonEntity seasonModel = new SoccerSeasonEntity();
     seasonModel.id = season.id;
     seasonModel.caption = season.caption;
     seasonModel.league = season.league;
@@ -58,17 +58,17 @@ public class SoccerSeasonModelDataMapper {
   }
 
   /**
-   * Transform a Collection of {@link SoccerSeasonEntity} into a Collection of {@link SoccerSeasonModel}.
+   * Transform a Collection of {@link SoccerSeason} into a Collection of {@link SoccerSeasonEntity}.
    *
    * @param seasonCollection Objects to be transformed.
-   * @return List of {@link SoccerSeasonModel}.
+   * @return List of {@link SoccerSeasonEntity}.
    */
-  public List<SoccerSeasonModel> transform(List<SoccerSeasonEntity> seasonCollection) {
-    List<SoccerSeasonModel> seasonModelCollection;
+  public List<SoccerSeasonEntity> transform(List<SoccerSeason> seasonCollection) {
+    List<SoccerSeasonEntity> seasonModelCollection;
 
     if (seasonCollection != null && !seasonCollection.isEmpty()) {
       seasonModelCollection = new ArrayList<>();
-      for (SoccerSeasonEntity user : seasonCollection) {
+      for (SoccerSeason user : seasonCollection) {
         seasonModelCollection.add(transform(user));
       }
     } else {

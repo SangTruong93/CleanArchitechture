@@ -8,7 +8,7 @@ import namtran.cleanarchitechturesample.view.AppState;
 import namtran.cleanarchitechturesample.di.module.AppModule;
 
 @Singleton
-@Component(modules = { AppModule.class })
+@Component(modules = {AppModule.class,})
 public interface AppComponent extends AndroidInjector<AppState> {
 
     @Component.Builder

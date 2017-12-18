@@ -13,8 +13,8 @@ import namtran.cleanarchitechturesample.Resource;
 import namtran.cleanarchitechturesample.view.mvvm.core.BaseViewModel;
 import namtran.cleanarchitechturesample.mapper.SoccerSeasonModelDataMapper;
 import namtran.cleanarchitechturesample.model.SoccerSeasonModel;
+import namtran.domain.entity.SoccerSeasonEntity;
 import namtran.domain.interactor.GetSessionUseCase;
-import namtran.flatform.remote.response.session.SoccerSeason;
 
 public class MvvmActivityModel extends BaseViewModel {
 
@@ -47,7 +47,7 @@ public class MvvmActivityModel extends BaseViewModel {
         onCleared();
     }
 
-    private final class GetSoccerSeasion extends DisposableSubscriber<List<SoccerSeason>> {
+    private final class GetSoccerSeasion extends DisposableSubscriber<List<SoccerSeasonEntity>> {
 
         @Override
         protected void onStart() {
@@ -56,7 +56,7 @@ public class MvvmActivityModel extends BaseViewModel {
         }
 
         @Override
-        public void onNext(List<SoccerSeason> soccerSeasons) {
+        public void onNext(List<SoccerSeasonEntity> soccerSeasons) {
             results.setValue(Resource.success(dataMapper.transform(soccerSeasons)));
         }
 

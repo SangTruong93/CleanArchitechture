@@ -10,8 +10,8 @@ import namtran.cleanarchitechturesample.view.mvp.core.BasePresenter;
 import namtran.cleanarchitechturesample.view.mvp.presenter.iview.ISoccerSeasonFragment;
 import namtran.cleanarchitechturesample.di.inject.PerFragment;
 import namtran.cleanarchitechturesample.mapper.SoccerSeasonModelDataMapper;
+import namtran.domain.entity.SoccerSeasonEntity;
 import namtran.domain.interactor.GetSessionUseCase;
-import namtran.flatform.remote.response.session.SoccerSeason;
 
 @PerFragment
 public class SoccerSeasonFragmentPresenter extends BasePresenter<ISoccerSeasonFragment.IView> implements ISoccerSeasonFragment.IPresenter {
@@ -38,14 +38,14 @@ public class SoccerSeasonFragmentPresenter extends BasePresenter<ISoccerSeasonFr
             mSessionUseCase.dispose();
     }
 
-    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeason>,ISoccerSeasonFragment.IView> {
+    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeasonEntity>,ISoccerSeasonFragment.IView> {
 
         GetData(ISoccerSeasonFragment.IView iView) {
             super(iView);
         }
 
         @Override
-        public void onNext(List<SoccerSeason> soccerSeasons) {
+        public void onNext(List<SoccerSeasonEntity> soccerSeasons) {
             super.onNext(soccerSeasons);
             view.onComplete(dataMapper.transform(soccerSeasons));
         }

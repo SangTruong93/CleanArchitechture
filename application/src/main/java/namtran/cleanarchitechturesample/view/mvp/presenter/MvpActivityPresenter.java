@@ -8,8 +8,8 @@ import namtran.cleanarchitechturesample.base.DefaultMvpSubscriber;
 import namtran.cleanarchitechturesample.view.mvp.core.BasePresenter;
 import namtran.cleanarchitechturesample.view.mvp.presenter.iview.IMvpActivity;
 import namtran.cleanarchitechturesample.di.inject.PerActivity;
+import namtran.domain.entity.SoccerSeasonEntity;
 import namtran.domain.interactor.GetSessionUseCase;
-import namtran.flatform.remote.response.session.SoccerSeason;
 
 @PerActivity
 public class MvpActivityPresenter extends BasePresenter<IMvpActivity.IView> implements IMvpActivity.IPresenter {
@@ -34,14 +34,14 @@ public class MvpActivityPresenter extends BasePresenter<IMvpActivity.IView> impl
             mSessionUseCase.dispose();
     }
 
-    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeason>,IMvpActivity.IView> {
+    private final class GetData extends DefaultMvpSubscriber<List<SoccerSeasonEntity>,IMvpActivity.IView> {
 
         GetData(IMvpActivity.IView iView) {
             super(iView);
         }
 
         @Override
-        public void onNext(List<SoccerSeason> soccerSeasons) {
+        public void onNext(List<SoccerSeasonEntity> soccerSeasons) {
             //view.onComplete(soccerSeasons);
         }
     }

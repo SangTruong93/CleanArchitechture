@@ -1,11 +1,9 @@
-package namtran.flatform.util;
+package namtran.util;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-
-import namtran.flatform.BuildConfig;
 
 @SuppressWarnings({"unused"})
 public final class Logger {

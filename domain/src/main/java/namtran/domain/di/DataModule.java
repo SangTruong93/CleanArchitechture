@@ -1,4 +1,4 @@
-package namtran.cleanarchitechturesample.di.module;
+package namtran.domain.di;
 
 import javax.inject.Singleton;
 
@@ -8,8 +8,10 @@ import namtran.domain.executor.AppSchedulerProvider;
 import namtran.domain.executor.SchedulerProvider;
 import namtran.domain.repository.AppRepository;
 import namtran.domain.repository.IAppRepository;
+import namtran.flatform.di.DbModule;
+import namtran.flatform.di.NetModule;
 
-@Module
+@Module(includes = {NetModule.class , DbModule.class})
 public class DataModule {
 
     @Provides

@@ -13,8 +13,8 @@ import namtran.cleanarchitechturesample.view.mvvm.core.BaseViewModel;
 import namtran.cleanarchitechturesample.Resource;
 import namtran.cleanarchitechturesample.mapper.TeamModelDataMapper;
 import namtran.cleanarchitechturesample.model.TeamModel;
+import namtran.domain.entity.TeamEntity;
 import namtran.domain.interactor.GetTeamUseCase;
-import namtran.flatform.remote.response.team.Team;
 
 public class TeamFragmentModel extends BaseViewModel {
 
@@ -47,7 +47,7 @@ public class TeamFragmentModel extends BaseViewModel {
         onCleared();
     }
 
-    private final class GetTeam extends DisposableSubscriber<List<Team>> {
+    private final class GetTeam extends DisposableSubscriber<List<TeamEntity>> {
 
         @Override
         protected void onStart() {
@@ -56,7 +56,7 @@ public class TeamFragmentModel extends BaseViewModel {
         }
 
         @Override
-        public void onNext(List<Team> teams) {
+        public void onNext(List<TeamEntity> teams) {
             results.setValue(Resource.success(dataMapper.transform(teams)));
         }
 

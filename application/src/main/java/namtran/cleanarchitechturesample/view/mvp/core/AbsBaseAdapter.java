@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.List;
 
-import namtran.flatform.util.Checker;
+import namtran.util.Checker;
 
 public abstract class AbsBaseAdapter<I, VH extends AbsBaseViewHolder<I>> extends RecyclerView.Adapter<VH> {
 

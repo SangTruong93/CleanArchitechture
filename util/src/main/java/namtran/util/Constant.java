@@ -1,4 +1,4 @@
-package namtran.flatform.util;
+package namtran.util;
 
 
 public interface Constant {

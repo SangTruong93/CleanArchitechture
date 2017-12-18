@@ -13,38 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package namtran.cleanarchitechturesample.mapper;
+package namtran.domain.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import namtran.cleanarchitechturesample.model.SoccerSeasonModel;
-import namtran.cleanarchitechturesample.model.TeamModel;
 import namtran.domain.entity.TeamEntity;
+import namtran.flatform.remote.response.team.Team;
 
 /**
- * Mapper class used to transform {@link TeamEntity} (in the domain layer)
- * to {@link TeamModel} in the
+ * Mapper class used to transform {@link Team} (in the domain layer)
+ * to {@link TeamEntity} in the
  * presentation layer.
  */
-public class TeamModelDataMapper {
+public class TeamEntityDataMapper {
 
   @Inject
-  public TeamModelDataMapper() {}
+  public TeamEntityDataMapper() {}
 
   /**
-   * Transform a {@link TeamEntity} into an {@link SoccerSeasonModel}.
+   * Transform a {@link Team} into an {@link TeamEntity}.
    *
    * @param team Object to be transformed.
-   * @return {@link TeamModel}.
+   * @return {@link TeamEntity}.
    */
-  public TeamModel transform(TeamEntity team) {
+  public TeamEntity transform(Team team) {
     if (team == null) {
       throw new IllegalArgumentException("Cannot transform a null value");
     }
-    final TeamModel teamModel = new TeamModel();
+    final TeamEntity teamModel = new TeamEntity();
     teamModel.idSeason = team.idSeason;
     teamModel.name = team.name;
     teamModel.code = team.code;
@@ -55,17 +54,17 @@ public class TeamModelDataMapper {
   }
 
   /**
-   * Transform a Collection of {@link TeamEntity} into a Collection of {@link TeamModel}.
+   * Transform a Collection of {@link Team} into a Collection of {@link TeamEntity}.
    *
    * @param teams Objects to be transformed.
-   * @return List of {@link TeamModel}.
+   * @return List of {@link TeamEntity}.
    */
-  public List<TeamModel> transform(List<TeamEntity> teams) {
-    List<TeamModel> teamModels;
+  public List<TeamEntity> transform(List<Team> teams) {
+    List<TeamEntity> teamModels;
 
     if (teams != null && !teams.isEmpty()) {
       teamModels = new ArrayList<>();
-      for (TeamEntity team : teams) {
+      for (Team team : teams) {
         teamModels.add(transform(team));
       }
     } else {

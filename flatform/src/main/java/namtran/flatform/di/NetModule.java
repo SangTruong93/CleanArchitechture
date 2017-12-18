@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static namtran.flatform.util.Constant.API_URL;
+import static namtran.util.Constant.API_URL;
 
 @Module
 public class NetModule {
