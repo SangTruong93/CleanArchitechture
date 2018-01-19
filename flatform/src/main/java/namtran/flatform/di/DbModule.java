@@ -20,7 +20,8 @@ public class DbModule {
                 .build();
     }
 
-    @Singleton @Provides
+    @Singleton
+    @Provides
     SoccerSeasonDao provideUserDao(DbProvider db) {
         return db.soccerSeasonDao();
     }

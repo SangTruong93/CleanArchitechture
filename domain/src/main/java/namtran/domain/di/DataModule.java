@@ -2,8 +2,8 @@ package namtran.domain.di;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import namtran.domain.executor.AppSchedulerProvider;
 import namtran.domain.executor.SchedulerProvider;
 import namtran.domain.repository.AppRepository;
@@ -12,16 +12,13 @@ import namtran.flatform.di.DbModule;
 import namtran.flatform.di.NetModule;
 
 @Module(includes = {NetModule.class , DbModule.class})
-public class DataModule {
+public abstract class DataModule {
 
-    @Provides
+    @Binds
     @Singleton
-    IAppRepository provideDataManager(AppRepository repository) {
-        return repository;
-    }
+    abstract IAppRepository provideDataManager(AppRepository repository);
 
-    @Provides
-    SchedulerProvider provideSchedulerProvider() {
-        return new AppSchedulerProvider();
-    }
+    @Binds
+    @Singleton
+    abstract SchedulerProvider provideSchedulerProvider(AppSchedulerProvider schedulerProvider);
 }

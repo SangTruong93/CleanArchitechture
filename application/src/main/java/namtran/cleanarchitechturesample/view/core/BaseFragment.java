@@ -30,6 +30,8 @@ import android.view.View;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
@@ -73,6 +75,9 @@ public abstract class BaseFragment extends Fragment  implements HasSupportFragme
     @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
     protected FragmentManager childFragmentManager;
 
+    @Nullable
+    private Unbinder mUnbinder;
+
     @Inject
     DispatchingAndroidInjector<Fragment> childFragmentInjector;
 
@@ -104,6 +109,7 @@ public abstract class BaseFragment extends Fragment  implements HasSupportFragme
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mUnbinder = ButterKnife.bind(this, getView());
         if (getView() != null){
             getView().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -132,6 +138,10 @@ public abstract class BaseFragment extends Fragment  implements HasSupportFragme
 
     @Override
     public void onDestroy() {
+        // This lifecycle method still gets called even if onCreateView returns a null view.
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
         super.onDestroy();
         detach();
     }

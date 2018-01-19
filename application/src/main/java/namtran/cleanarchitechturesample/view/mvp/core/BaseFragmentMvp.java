@@ -55,9 +55,6 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
     protected abstract int setLayoutContainId();
     protected abstract void initData(Bundle savedInstanceState);
 
-    @Nullable
-    private Unbinder mUnbinder;
-
     @Override
     public void onShowLoading() {
         mProgressLoading.setVisibility(View.VISIBLE);
@@ -135,16 +132,7 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
          * no need to check if getView() returns null here because this lifecycle method only gets
          * called with a non-null IView.
          */
-        mUnbinder = ButterKnife.bind(this, getView());
         presenter.onStart(savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
-        if (view != null) {
-            super.onViewCreated(view, savedInstanceState);
-            mUnbinder = ButterKnife.bind(this, view);
-        }
     }
 
     @Override
@@ -183,10 +171,6 @@ public abstract class BaseFragmentMvp<T extends Presenter> extends BaseFragment
     @Override
     public void onDestroyView() {
         presenter.onEnd();
-        // This lifecycle method still gets called even if onCreateView returns a null view.
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
-        }
         super.onDestroyView();
     }
 }

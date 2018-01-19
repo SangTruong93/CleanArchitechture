@@ -21,7 +21,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Scope;
 
-/**
+/*
  * A custom scoping annotation that specifies that the lifespan of a dependency be the same as that
  * of an Activity.
  *
